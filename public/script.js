@@ -14,7 +14,7 @@ navigator.mediaDevices
   .getUserMedia({
     //Request to access video and audio
     video: true,
-    audio: false,
+    audio: true,
   })
   .then((stream) => {
     myVideoStream = stream;
@@ -84,4 +84,32 @@ const addVideoStream = (video, stream) => {
 const scrollToBottom = () => {
   let d = $(".main__chat__window");
   d.scrollTop(d.prop("scrollHeight"));
+};
+
+// Stop video
+const muteUnmute = () => {
+  const enabled = myVideoStream.getAudioTracks()[0].enabled; //Get the video stream
+  if (enabled) {
+    myVideoStream.getAudioTracks()[0].enabled = false;
+    setUnmuteButton();
+  } else {
+    setMuteButton();
+    myVideoStream.getAudioTracks()[0].enabled = true;
+  }
+};
+
+const setMuteButton = () => {
+  const html = `
+  <i class="fas fa-microphone"></i>
+              <span>Mute</span>
+  `;
+  document.querySelector(".main__mute__button").innerHTML = html;
+};
+
+const setUnmuteButton = () => {
+  const html = `
+  <i class="unmute fas fa-microphone-slash"></i>
+              <span>Unmute</span>
+  `;
+  document.querySelector(".main__mute__button").innerHTML = html;
 };
