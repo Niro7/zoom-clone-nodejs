@@ -48,7 +48,10 @@ navigator.mediaDevices
     // Receive the message (through Server)
     socket.on("createMessage", (message) => {
       console.log(message);
-      $("ul").append(`<li class="message" ><b>user</b></br>${message}</li>`); //Append the message as list in ul tag
+      $(".messages").append(
+        `<li class="message" ><b>user</b></br>${message}</li>`
+      ); //Append the message as list in ul tag
+      scrollToBottom();
     });
   });
 
@@ -75,4 +78,10 @@ const addVideoStream = (video, stream) => {
     video.play();
   });
   videoGrid.append(video);
+};
+
+//Enable scrolling when messages overflow, the messages keep scrolling to bottom
+const scrollToBottom = () => {
+  let d = $(".main__chat__window");
+  d.scrollTop(d.prop("scrollHeight"));
 };
