@@ -86,9 +86,9 @@ const scrollToBottom = () => {
   d.scrollTop(d.prop("scrollHeight"));
 };
 
-// Stop video
+// Stop Audio and play audio
 const muteUnmute = () => {
-  const enabled = myVideoStream.getAudioTracks()[0].enabled; //Get the video stream
+  const enabled = myVideoStream.getAudioTracks()[0].enabled; //Get the Audio stream
   if (enabled) {
     myVideoStream.getAudioTracks()[0].enabled = false;
     setUnmuteButton();
@@ -112,4 +112,31 @@ const setUnmuteButton = () => {
               <span>Unmute</span>
   `;
   document.querySelector(".main__mute__button").innerHTML = html;
+};
+// Stop Video and play Video
+const stopPlay = () => {
+  const enabled = myVideoStream.getVideoTracks()[0].enabled;
+  if (enabled) {
+    myVideoStream.getVideoTracks()[0].enabled = false;
+    setPlayVideoButton();
+  } else {
+    setStopVideoButton();
+    myVideoStream.getVideoTracks()[0].enabled = true;
+  }
+};
+
+const setStopVideoButton = () => {
+  const html = `
+  <i class="fas fa-video"></i>
+            <span>Stop Video</span>
+  `;
+  document.querySelector(".main__video__button").innerHTML = html;
+};
+
+const setPlayVideoButton = () => {
+  const html = `
+  <i class="stop fas fa-video-slash"></i>
+            <span>Play Video</span>
+  `;
+  document.querySelector(".main__video__button").innerHTML = html;
 };

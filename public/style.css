@@ -109,6 +109,7 @@ video {
   outline: 1px solid slategrey;
 }
 
-.unmute {
+.unmute,
+.stop {
   color: #cc3b33;
 }
