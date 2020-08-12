@@ -28,6 +28,10 @@ io.on("connection", (socket) => {
     // console.log("WE have joined Room!");
     socket.join(roomId);
     socket.to(roomId).broadcast.emit("user-connected", userId); //user Id of the user connected
+    // When user connected message can be sent
+    socket.on("message", (message) => {
+      io.to(roomId).emit("createMessage", message); //Send message to the room with that particular ID
+    });
   });
 });
 server.listen(3030);

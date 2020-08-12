@@ -34,6 +34,22 @@ navigator.mediaDevices
       // listen to my stream and then send it to others
       connecToNewUser(userId, stream);
     });
+    // Get message using jQuery
+    let text = $("input");
+
+    //Send msg on pressing Enter key
+    $("html").keydown((e) => {
+      if (e.which == 13 && text.val().length !== 0) {
+        // console.log(text.val());
+        socket.emit("message", text.val()); //sending the message from frontend
+        text.val("");
+      }
+    });
+    // Receive the message (through Server)
+    socket.on("createMessage", (message) => {
+      console.log(message);
+      $("ul").append(`<li class="message" ><b>user</b></br>${message}</li>`); //Append the message as list in ul tag
+    });
   });
 
 peer.on("open", (id) => {
